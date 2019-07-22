@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
-      <h3 class="text-center">Messaging</h3>
+      <h3 class="text-center">Fitz Chat</h3>
       <div class="input_msg_write">
         <input type="text" v-model="displayName" placeholder="Display Name" />
       </div>
@@ -31,10 +31,6 @@
                   class="write_msg"
                   placeholder="Type a message"
                 />
-                <button class="msg_send_btn" type="button">
-                  <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                </button>
-                <button @click="test">Test</button>
               </div>
             </div>
           </div>
@@ -181,6 +177,17 @@ img {
   width: 6%;
   text-align: center;
 }
+.incoming_msg_img h6 {
+  margin: 8px;
+}
+
+.incoming_msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
 .received_msg {
   display: inline-flex;
   justify-content: center;
