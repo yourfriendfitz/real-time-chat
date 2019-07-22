@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 <template>
   <div class="home">
     <div class="container">
@@ -13,7 +12,7 @@ import firebase from 'firebase';
                 </div>
                 <div class="received_msg">
                   <div class="received_withd_msg">
-                    <p>{{message.message}}</p>
+                    <p>{{message.displayName}}: {{message.message}}</p>
                     <span class="time_date">{{message.timestamp}}</span>
                   </div>
                 </div>
@@ -31,6 +30,7 @@ import firebase from 'firebase';
                 <button class="msg_send_btn" type="button">
                   <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                 </button>
+                <button @click="test">test</button>
               </div>
             </div>
           </div>
@@ -41,18 +41,20 @@ import firebase from 'firebase';
 </template>
 
 <script>
-import firebase from "firebase";
+import displayName from "./Login.vue";
 
 export default {
   name: "PrivateChat",
   data() {
     return {
       message: null,
-      messages: [],
-      authUser: {}
+      messages: []
     };
   },
   methods: {
+    test() {
+      console.log(displayName);
+    },
     fetchMessages() {
       db.collection("chat")
         .orderBy("time")
@@ -70,6 +72,7 @@ export default {
       db.collection("chat").add({
         // grab message from v-model=message
         message: this.message,
+        displayName: "",
         time: new Date(),
         timestamp: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
       });
@@ -81,17 +84,6 @@ export default {
   // fetch chats from firestore
   created() {
     this.fetchMessages();
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          next();
-        } else {
-          vm.$router.push("/login");
-        }
-      });
-    });
   }
 };
 </script>

@@ -19,7 +19,7 @@
                   @keypress.enter="login"
                   v-model="displayName"
                   type="text"
-                  placeholder="Display Name"
+                  required
                 />
               </div>
             </div>
@@ -31,24 +31,32 @@
 </template>
 
 <script>
-import firebase from "firebase";
-
 export default {
   name: "Login",
+  data() {
+    return {
+      user: {
+          displayName: ""
+      },
+    };
+  },
   methods: {
     login() {
-      const user = firebase
-        .auth()
-        .signInAnonymously()
-        .then(this.$router.push("/"))
-        .catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(`${errorCode} - ${errorMessage}`);
-          // ...
-        });
-      user.displayName = this.displayName;
+      //   const user = firebase
+      //     .auth()
+      //     .signInAnonymously()
+      //     .then(this.$router.push("/"))
+      //     .catch(function(error) {
+      //       // Handle Errors here.
+      //       var errorCode = error.code;
+      //       var errorMessage = error.message;
+      //       console.log(`${errorCode} - ${errorMessage}`);
+      //       // ...
+      //     });
+      //   console.log(user);
+      this.user.displayName = displayName;
+      console.log(this.displayName);
+      this.$router.push("/chat");
     }
   }
 };

@@ -11,12 +11,12 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: "/chat",
+      name: "chat",
       component: PrivateChat
     },
     {
-      path: "/Login",
+      path: "/login",
       name: "login",
       component: Login
     }

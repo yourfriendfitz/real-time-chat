@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Chat</router-link> |
-      <router-link to="/Login">Login</router-link>
+      <router-link to="/chat">Chat</router-link> |
+      <router-link to="/login">Login</router-link>
     </div>
     <router-view />
   </div>
