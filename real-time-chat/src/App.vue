@@ -11,7 +11,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
-    color: black !important;
+    color: black;
     background-color: darkgray;
 }
 #nav {

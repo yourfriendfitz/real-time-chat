@@ -3,7 +3,7 @@
     <div class="container">
       <h3 class="text-center">Fitz Chat</h3>
       <div class="input_msg_write">
-        <input type="text" v-model="displayName" placeholder="Display Name" />
+        <input type="text" v-model="displayName" placeholder="Display Name" required />
       </div>
       <div class="messaging">
         <div class="inbox_msg">
@@ -30,6 +30,7 @@
                   type="text"
                   class="write_msg"
                   placeholder="Type a message"
+                  required
                 />
               </div>
             </div>
@@ -47,7 +48,7 @@ export default {
     return {
       message: null,
       messages: [],
-      displayName: "",
+      displayName: ""
     };
   },
   methods: {
@@ -67,6 +68,10 @@ export default {
         });
     },
     saveMessage() {
+      if (this.displayName === "") {
+        alert("Enter a Display Name!");
+        return;
+      }
       // save to firestore database
       db.collection("chat").add({
         // grab message from v-model=message
@@ -120,7 +125,6 @@ img {
   margin: 20px 0 0;
 }
 
-
 .recent_heading h4 {
   font-size: 21px;
   margin: auto;
@@ -164,7 +168,6 @@ img {
   width: 88%;
 }
 
-
 .incoming_msg_img {
   display: inline-flex;
   justify-content: center;
@@ -174,6 +177,7 @@ img {
   text-align: center;
 }
 .incoming_msg_img h6 {
+  width: 32px;
   margin: 8px;
 }
 
@@ -181,6 +185,8 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
+  width: 300px;
   padding: 8px;
 }
 
