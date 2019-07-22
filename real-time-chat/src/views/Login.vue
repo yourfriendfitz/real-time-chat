@@ -13,7 +13,14 @@
           <div class="float">
             <div class="form">
               <div class="form-group">
-                <button @click="login" class="form-control">Login Anonymously</button>
+                <span>Enter a Display Name and Hit Enter</span>
+                <input
+                  class="form-control"
+                  @keypress.enter="login"
+                  v-model="displayName"
+                  type="text"
+                  placeholder="Display Name"
+                />
               </div>
             </div>
           </div>
@@ -41,6 +48,7 @@ export default {
           console.log(`${errorCode} - ${errorMessage}`);
           // ...
         });
+      user.displayName = this.displayName;
     }
   }
 };
