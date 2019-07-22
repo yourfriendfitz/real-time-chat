@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Fitz Chat",
+    "short_name": "Fitz Chat",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -8,7 +8,9 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#a9a9a9",
+    "background_color": "#a9a9a9",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone"
 }

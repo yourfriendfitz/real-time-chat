@@ -122,7 +122,6 @@ img {
 
 
 .recent_heading h4 {
-  color: #05728f;
   font-size: 21px;
   margin: auto;
 }
@@ -137,7 +136,6 @@ img {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
   padding: 0;
-  color: #707070;
   font-size: 18px;
 }
 .srch_bar .input-group-addon {
@@ -146,7 +144,6 @@ img {
 
 .chat_ib h5 {
   font-size: 15px;
-  color: #464646;
   margin: 0 0 8px 0;
 }
 .chat_ib h5 span {
@@ -155,7 +152,6 @@ img {
 }
 .chat_ib p {
   font-size: 14px;
-  color: #989898;
   margin: auto;
 }
 .chat_img {
@@ -200,14 +196,12 @@ img {
 .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
   border-radius: 3px;
-  color: #646464;
   font-size: 14px;
   margin: 0;
   padding: 5px 10px 5px 12px;
   width: 100%;
 }
 .time_date {
-  color: #747474;
   display: block;
   font-size: 12px;
   margin: 8px 0 0;
