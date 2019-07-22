@@ -13,6 +13,7 @@
     sans-serif;
     color: black;
     background-color: darkgray;
+    height: 100vh;
 }
 #nav {
   padding: 30px;
