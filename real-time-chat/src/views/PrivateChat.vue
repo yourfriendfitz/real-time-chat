@@ -2,6 +2,9 @@
   <div class="home">
     <div class="container">
       <h3 class="text-center">Messaging</h3>
+      <div class="input_msg_write">
+        <input type="text" v-model="displayName" placeholder="Display Name" />
+      </div>
       <div class="messaging">
         <div class="inbox_msg">
           <div class="mesgs">
@@ -9,10 +12,11 @@
               <div v-for="message in messages" class="incoming_msg">
                 <div class="incoming_msg_img">
                   <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
+                  <h6 class="displayName">{{message.displayName}}</h6>
                 </div>
                 <div class="received_msg">
                   <div class="received_withd_msg">
-                    <p>{{message.displayName}}: {{message.message}}</p>
+                    <p>{{message.message}}</p>
                     <span class="time_date">{{message.timestamp}}</span>
                   </div>
                 </div>
@@ -30,7 +34,7 @@
                 <button class="msg_send_btn" type="button">
                   <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                 </button>
-                <button @click="test">test</button>
+                <button @click="test">Test</button>
               </div>
             </div>
           </div>
@@ -41,19 +45,18 @@
 </template>
 
 <script>
-import displayName from "./Login.vue";
-
 export default {
   name: "PrivateChat",
   data() {
     return {
       message: null,
-      messages: []
+      messages: [],
+      displayName: "",
     };
   },
   methods: {
     test() {
-      console.log(displayName);
+      console.log(this.displayName);
     },
     fetchMessages() {
       db.collection("chat")
@@ -72,7 +75,7 @@ export default {
       db.collection("chat").add({
         // grab message from v-model=message
         message: this.message,
-        displayName: "",
+        displayName: this.displayName,
         time: new Date(),
         timestamp: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
       });
@@ -84,6 +87,15 @@ export default {
   // fetch chats from firestore
   created() {
     this.fetchMessages();
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$on("displayName", displayName => {
+        console.log(displayName);
+        this.displayName = displayName;
+        next();
+      });
+    });
   }
 };
 </script>
@@ -112,21 +124,6 @@ img {
   margin: 20px 0 0;
 }
 
-.recent_heading {
-  float: left;
-  width: 40%;
-}
-.srch_bar {
-  display: inline-block;
-  text-align: right;
-  width: 60%;
-  padding: ;
-}
-.headind_srch {
-  padding: 10px 29px 10px 20px;
-  overflow: hidden;
-  border-bottom: 1px solid #c4c4c4;
-}
 
 .recent_heading h4 {
   color: #05728f;
@@ -175,33 +172,23 @@ img {
   width: 88%;
 }
 
-.chat_people {
-  overflow: hidden;
-  clear: both;
-}
-.chat_list {
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-}
-.inbox_chat {
-  height: 550px;
-  overflow-y: scroll;
-}
-
-.active_chat {
-  background: #ebebeb;
-}
 
 .incoming_msg_img {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 6%;
+  text-align: center;
 }
 .received_msg {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 0 0 10px;
   vertical-align: top;
-  width: 92%;
+  width: 75vw;
+  margin: auto;
 }
 .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
@@ -227,15 +214,6 @@ img {
   width: 100%;
 }
 
-.sent_msg p {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
-  font-size: 14px;
-  margin: 0;
-  color: #fff;
-  padding: 5px 10px 5px 12px;
-  width: 100%;
-}
 .outgoing_msg {
   overflow: hidden;
   margin: 26px 0 26px;
@@ -251,6 +229,7 @@ img {
   font-size: 15px;
   min-height: 48px;
   width: 100%;
+  padding: 8px;
 }
 
 .type_msg {
