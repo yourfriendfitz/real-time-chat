@@ -232,7 +232,6 @@ img {
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
-  color: #4c4c4c;
   font-size: 15px;
   min-height: 48px;
   width: 100%;

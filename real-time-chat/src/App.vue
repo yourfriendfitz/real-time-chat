@@ -11,6 +11,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
+    background-color: darkgray;
 }
 #nav {
   padding: 30px;
