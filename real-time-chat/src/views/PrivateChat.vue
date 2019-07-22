@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 <template>
   <div class="home">
     <div class="container">
@@ -144,58 +145,14 @@
           </div>
           <div class="mesgs">
             <div class="msg_history">
-              <div class="incoming_msg">
+              <div v-for="message in messages" class="incoming_msg">
                 <div class="incoming_msg_img">
                   <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
                 </div>
                 <div class="received_msg">
                   <div class="received_withd_msg">
-                    <p>
-                      Test which is a new approach to have all
-                      solutions
-                    </p>
-                    <span class="time_date">11:01 AM | June 9</span>
-                  </div>
-                </div>
-              </div>
-              <div class="outgoing_msg">
-                <div class="sent_msg">
-                  <p>
-                    Test which is a new approach to have all
-                    solutions
-                  </p>
-                  <span class="time_date">11:01 AM | June 9</span>
-                </div>
-              </div>
-              <div class="incoming_msg">
-                <div class="incoming_msg_img">
-                  <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
-                </div>
-                <div class="received_msg">
-                  <div class="received_withd_msg">
-                    <p>Test, which is a new approach to have</p>
-                    <span class="time_date">11:01 AM | Yesterday</span>
-                  </div>
-                </div>
-              </div>
-              <div class="outgoing_msg">
-                <div class="sent_msg">
-                  <p>Apollo University, Delhi, India Test</p>
-                  <span class="time_date">11:01 AM | Today</span>
-                </div>
-              </div>
-              <div class="incoming_msg">
-                <div class="incoming_msg_img">
-                  <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
-                </div>
-                <div class="received_msg">
-                  <div class="received_withd_msg">
-                    <p>
-                      We work directly with our designers and suppliers,
-                      and sell direct to you, which means quality, exclusive
-                      products, at a price anyone can afford.
-                    </p>
-                    <span class="time_date">11:01 AM | Today</span>
+                    <p>{{message.message}}</p>
+                    <span class="time_date">{{message.timestamp}}</span>
                   </div>
                 </div>
               </div>
@@ -227,36 +184,56 @@
 </template>
 
 <script>
+import firebase from "firebase"
+
 export default {
+  name: "PrivateChat",
   data() {
     return {
-      message: null
+      message: null,
+      messages: []
     };
   },
   methods: {
-    saveMessage() {
-      // save to firestore database
-      db.collection("chat").add({
-        // grab message from v-model=message
-        message: this.message
-      });
-      // clear message field
-      this.message = null;
-    },
     fetchMessages() {
       db.collection("chat")
+        .orderBy("time")
         .get()
         .then(querySnapshot => {
           let allMessages = [];
           querySnapshot.forEach(doc => {
-            allMessages.push(doc.data);
+            allMessages.push(doc.data());
           });
+          this.messages = allMessages;
         });
+    },
+    saveMessage() {
+      // save to firestore database
+      db.collection("chat").add({
+        // grab message from v-model=message
+        message: this.message,
+        time: new Date(),
+        timestamp: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
+      });
+      // clear message field
+      this.message = null;
+      this.fetchMessages();
     }
   },
   // fetch chats from firestore
   created() {
     this.fetchMessages();
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          next();
+        } else {
+          vm.$router.push("/login");
+        }
+      });
+    });
   }
 };
 </script>
