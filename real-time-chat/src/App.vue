@@ -14,6 +14,7 @@
     color: black;
     background-color: darkgray;
     height: 100vh;
+    overflow: hidden;
 }
 #nav {
   padding: 30px;
